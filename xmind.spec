@@ -51,13 +51,14 @@ cp -af ./XMind_Linux/* %{buildroot}%{_datadir}/%{name}
 cp -af %{SOURCE1} %{buildroot}%{_bindir}/%{name}
 cp -af %{SOURCE2} %{buildroot}%{_datadir}/pixmaps/%{name}.png
 cp -af %{SOURCE3} %{buildroot}%{_datadir}/mime/packages/%{name}.xml
-#cp -af %{SOURCE4} %{buildroot}%{_datadir}/applications/%{name}.desktop
 
+
+cp -af %{SOURCE4} %{buildroot}/xmind.desktop
 desktop-file-install                          \
 --add-category="Office"                       \
 --delete-original                             \
 --dir=%{buildroot}%{_datadir}/applications    \
-%{SOURCE4}
+%{buildroot}/xmind.desktop
 
 
 %files
