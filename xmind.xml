@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<mime-info xmlns='http://www.freedesktop.org/standards/shared-mime-info'>
+    <mime-type type="application/xmind">
+        <comment>XMind Map</comment>
+        <glob pattern="*.xmind"/>
+    </mime-type>
+</mime-info>

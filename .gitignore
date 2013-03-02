@@ -1,0 +1,7 @@
+*.src.rpm
+*.rpm
+*.zip
+*.tar
+*.tar.gz
+.*~
+*~
