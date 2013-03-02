@@ -1,0 +1,11 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=XMind
+Comment=XMind -- mind mapping software
+Exec=xmind
+Terminal=false
+Type=Application
+Icon=xmind
+Categories=Office;
+MimeType=application/xmind;
+X-Desktop-File-Install-Version=0.21
