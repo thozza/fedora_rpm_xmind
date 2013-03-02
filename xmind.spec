@@ -14,7 +14,8 @@ Source3:    xmind.xml
 Source4:    xmind.desktop
 ExcludeArch:ppc ppc64 arm s390x sparc
 BuildRequires:unzip	
-#Requires:	
+BuildRequires: desktop-file-utils
+Requires: java
 
 %description
 XMind is an open source project that contributes to building a cutting-edge brainstorming/mind-mapping facility, focused on both usability and extendability. It helps people in capturing ideas into visually self-organized charts and sharing them for collaboration and communication. Currently supporting mind maps, fishbone diagrams, tree diagrams, org-charts, logic charts, and even spreadsheets. Often used for knowledge management, meeting minutes, task management, and GTD. 
@@ -50,10 +51,13 @@ cp -af ./XMind_Linux/* %{buildroot}%{_datadir}/%{name}
 cp -af %{SOURCE1} %{buildroot}%{_bindir}/%{name}
 cp -af %{SOURCE2} %{buildroot}%{_datadir}/pixmaps/%{name}.png
 cp -af %{SOURCE3} %{buildroot}%{_datadir}/mime/packages/%{name}.xml
-cp -af %{SOURCE4} %{buildroot}%{_datadir}/applications/%{name}.desktop
+#cp -af %{SOURCE4} %{buildroot}%{_datadir}/applications/%{name}.desktop
 
-#install -p %{SOURCE4} $RPM_BUILD_ROOT%{_bindir}/%{name}
-#sed -i -e 's,@appdir@,%{_appdir},' $RPM_BUILD_ROOT%{_bindir}/%{name}
+desktop-file-install                          \
+--add-category="Office"                       \
+--delete-original                             \
+--dir=%{buildroot}%{_datadir}/applications    \
+%{SOURCE4}
 
 
 %files
