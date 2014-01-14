@@ -1,13 +1,15 @@
 %define __jar_repack 0
 
+%define version_suffix 201311050558
+
 Name:		xmind
-Version:	3.3.1
+Version:	3.4.0
 Release:	1%{?dist}
 Summary:	Brainstorming and Mind Mapping
 Group:      Applications/Productivity
 License:    EPL or LGPLv3
 URL:		http://www.xmind.net/
-Source0:    http://www.xmind.net/xmind/downloads/%{name}-portable-%{version}.201212250029.zip
+Source0:    http://www.xmind.net/xmind/downloads/%{name}-portable-%{version}.%{version_suffix}.zip
 Source1:    xmind.sh
 Source2:    xmind.png
 Source3:    xmind.xml
@@ -73,4 +75,7 @@ desktop-file-install                          \
 
 
 %changelog
+* Tue Jan 14 2014 Tomas Tomecek <ttomecek@redhat.com> - 3.4.0-1
+- rebase to 3.4.0
+
 
