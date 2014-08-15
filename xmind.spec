@@ -3,7 +3,7 @@
 %define version_suffix 201401221918
 
 Name:       xmind
-Version:    3.4.0
+Version:    3.4.1
 Release:    1%{?dist}
 Summary:    Brainstorming and Mind Mapping
 Group:      Applications/Productivity
