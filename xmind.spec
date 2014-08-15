@@ -53,6 +53,7 @@ mkdir -p %{buildroot}%{_bindir}
 chrpath --delete XMind_Linux/libcairo-swt.so
 
 # hack to get rid of the splash screen
+# https://xmind.desk.com/customer/portal/questions/5667621-xmind-startup-bug-in-ubuntu-13-4
 mkdir -p icons
 touch icons/progress.gif
 jar -uf Commons/plugins/org.xmind.cathy_%{version}.%{version_suffix}.jar icons/progress.gif
