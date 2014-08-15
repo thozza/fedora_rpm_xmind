@@ -17,6 +17,7 @@ Source4:    xmind.desktop
 ExcludeArch:ppc ppc64 arm s390x sparc
 BuildRequires: unzip
 BuildRequires: desktop-file-utils
+BuildRequires: chrpath
 Requires: java
 
 %description
@@ -47,6 +48,9 @@ mkdir -p %{buildroot}%{_datadir}/pixmaps
 mkdir -p %{buildroot}%{_datadir}/mime/packages
 mkdir -p %{buildroot}%{_datadir}/applications
 mkdir -p %{buildroot}%{_bindir}
+
+# delete rpath from libcairo-swt.so
+chrpath --delete XMind_Linux/libcairo-swt.so
 
 cp -af ./Commons/* %{buildroot}%{_javadir}/%{name}
 cp -af ./XMind_Linux/* %{buildroot}%{_datadir}/%{name}
