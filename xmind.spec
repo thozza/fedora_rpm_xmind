@@ -52,6 +52,13 @@ mkdir -p %{buildroot}%{_bindir}
 # delete rpath from libcairo-swt.so
 chrpath --delete XMind_Linux/libcairo-swt.so
 
+# hack to get rid of the splash screen
+mkdir -p icons
+touch icons/progress.gif
+jar -uf Commons/plugins/org.xmind.cathy_%{version}.%{version_suffix}.jar icons/progress.gif
+chmod 0644 Commons/plugins/org.xmind.cathy_%{version}.%{version_suffix}.jar
+rm -rf icons
+
 cp -af ./Commons/* %{buildroot}%{_javadir}/%{name}
 cp -af ./XMind_Linux/* %{buildroot}%{_datadir}/%{name}
 cp -af %{SOURCE1} %{buildroot}%{_bindir}/%{name}
