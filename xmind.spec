@@ -1,21 +1,21 @@
 %define __jar_repack 0
 
-%define version_suffix 201311050558
+%define version_suffix 201401221918
 
-Name:		xmind
-Version:	3.4.0
-Release:	1%{?dist}
-Summary:	Brainstorming and Mind Mapping
+Name:       xmind
+Version:    3.4.0
+Release:    1%{?dist}
+Summary:    Brainstorming and Mind Mapping
 Group:      Applications/Productivity
 License:    EPL or LGPLv3
-URL:		http://www.xmind.net/
+URL:        http://www.xmind.net/
 Source0:    http://www.xmind.net/xmind/downloads/%{name}-portable-%{version}.%{version_suffix}.zip
 Source1:    xmind.sh
 Source2:    xmind.png
 Source3:    xmind.xml
 Source4:    xmind.desktop
 ExcludeArch:ppc ppc64 arm s390x sparc
-BuildRequires:unzip	
+BuildRequires: unzip
 BuildRequires: desktop-file-utils
 Requires: java
 
@@ -24,7 +24,7 @@ XMind is an open source project that contributes to building a cutting-edge brai
 
 %prep
 #option -c is not working, it does not create specified dir
-#%setup -q -c "%{name}-portable-%{version}"
+#%%setup -q -c "%{name}-portable-%{version}"
 %setup -q -c
 
 %ifarch x86_64
@@ -75,6 +75,9 @@ desktop-file-install                          \
 
 
 %changelog
+* Fri Aug 15 2014 Tomas Hozza <thozza@redhat.com> - 3.4.1-1
+- Update to 3.4.1
+
 * Tue Jan 14 2014 Tomas Tomecek <ttomecek@redhat.com> - 3.4.0-1
 - rebase to 3.4.0
 
