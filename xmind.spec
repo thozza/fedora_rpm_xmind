@@ -18,6 +18,7 @@ ExcludeArch:ppc ppc64 arm s390x sparc
 BuildRequires: unzip
 BuildRequires: desktop-file-utils
 BuildRequires: chrpath
+BuildRequires: java-devel
 Requires: java
 
 %description
