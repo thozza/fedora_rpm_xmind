@@ -1,9 +1,9 @@
 %define __jar_repack 0
 
-%define version_suffix 201401221918
+%define version_suffix 201504270119
 
 Name:       xmind
-Version:    3.4.1
+Version:    3.5.2
 Release:    1%{?dist}
 Summary:    Brainstorming and Mind Mapping
 Group:      Applications/Productivity
