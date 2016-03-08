@@ -3,13 +3,13 @@
 %define version_suffix 201504270119
 
 Name:       xmind
-Version:    3.5.2
+Version:    3.6.1
 Release:    1%{?dist}
 Summary:    Brainstorming and Mind Mapping
 Group:      Applications/Productivity
 License:    EPL or LGPLv3
-URL:        http://www.xmind.net/
-Source0:    http://www.xmind.net/xmind/downloads/%{name}-portable-%{version}.%{version_suffix}.zip
+URL:        http://www.xmind.net
+Source0:    http://www.xmind.net/xmind/downloads/%{name}-7-update1-portable.zip
 Source1:    xmind.sh
 Source2:    xmind.png
 Source3:    xmind.xml
@@ -20,6 +20,8 @@ BuildRequires: desktop-file-utils
 BuildRequires: chrpath
 BuildRequires: java-devel
 Requires: java
+# /home/xmind/.config/xmind/org.eclipse.osgi/840/0/.cp/libswt-pi-gtk-4528.so: libgtk-x11-2.0.so.0: cannot open shared object file: No such file or directory
+Requires: gtk2
 
 %description
 XMind is an open source project that contributes to building a cutting-edge brainstorming/mind-mapping facility, focused on both usability and extendability. It helps people in capturing ideas into visually self-organized charts and sharing them for collaboration and communication. Currently supporting mind maps, fishbone diagrams, tree diagrams, org-charts, logic charts, and even spreadsheets. Often used for knowledge management, meeting minutes, task management, and GTD. 
@@ -51,15 +53,16 @@ mkdir -p %{buildroot}%{_datadir}/applications
 mkdir -p %{buildroot}%{_bindir}
 
 # delete rpath from libcairo-swt.so
-chrpath --delete XMind_Linux/libcairo-swt.so
+# chrpath --delete XMind_Linux/libcairo-swt.so
 
 # hack to get rid of the splash screen
 # https://xmind.desk.com/customer/portal/questions/5667621-xmind-startup-bug-in-ubuntu-13-4
-mkdir -p icons
-touch icons/progress.gif
-jar -uf Commons/plugins/org.xmind.cathy_%{version}.%{version_suffix}.jar icons/progress.gif
-chmod 0644 Commons/plugins/org.xmind.cathy_%{version}.%{version_suffix}.jar
-rm -rf icons
+
+# mkdir -p icons
+# touch icons/progress.gif
+# jar -uf Commons/plugins/org.xmind.cathy_%{version}.%{version_suffix}.jar icons/progress.gif
+# chmod 0644 Commons/plugins/org.xmind.cathy_%{version}.%{version_suffix}.jar
+# rm -rf icons
 
 cp -af ./Commons/* %{buildroot}%{_javadir}/%{name}
 cp -af ./XMind_Linux/* %{buildroot}%{_datadir}/%{name}
@@ -88,6 +91,9 @@ desktop-file-install                          \
 
 
 %changelog
+* Tue Mar 08 2016 Tomas Tomecek <ttomecek@redhat.com> - 3.6.1-1
+- 3.6.1 update
+
 * Fri Aug 15 2014 Tomas Hozza <thozza@redhat.com> - 3.4.1-1
 - Update to 3.4.1
 
