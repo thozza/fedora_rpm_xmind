@@ -19,9 +19,10 @@ BuildRequires: unzip
 BuildRequires: desktop-file-utils
 BuildRequires: chrpath
 BuildRequires: java-devel
+AutoReqProv: no
 Requires: java
 # /home/xmind/.config/xmind/org.eclipse.osgi/840/0/.cp/libswt-pi-gtk-4528.so: libgtk-x11-2.0.so.0: cannot open shared object file: No such file or directory
-Requires: gtk2
+Requires: gtk3
 
 %description
 XMind is an open source project that contributes to building a cutting-edge brainstorming/mind-mapping facility, focused on both usability and extendability. It helps people in capturing ideas into visually self-organized charts and sharing them for collaboration and communication. Currently supporting mind maps, fishbone diagrams, tree diagrams, org-charts, logic charts, and even spreadsheets. Often used for knowledge management, meeting minutes, task management, and GTD. 

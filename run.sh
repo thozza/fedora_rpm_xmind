@@ -5,5 +5,4 @@ docker run \
     -e XAUTHORITY=/.Xauthority \
     -v ~/.Xauthority:/.Xauthority:ro \
     --name xmind \
-    -u root \
-    xmind bash
+    xmind
