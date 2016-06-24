@@ -1,20 +1,24 @@
-XMind package for Fedora
-========================
+# XMind package for Fedora
 
 
-I will try to build latest version in copr, here is link to `.repo` file:
+## Installation
 
-http://copr-fe.cloud.fedoraproject.org/coprs/ttomecek/xmind/repo/fedora-20-x86_64/
+```
+# dnf copr enable ttomecek/xmind
+# dnf install -y xmind
+```
 
 
-Usage
-=====
+## Usage
 
-`./xmind`
+```
+$ xmind
+```
 
-Changelog
-=========
+## For maintainers
 
-* Tue Jan 14 2014 - 3.4.0-1
-- update to 3.4.0 version
+Rebuild in copr:
 
+```
+$ copr build ttomecek/xmind xmind-*.src.rpm
+```

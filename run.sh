@@ -1,4 +1,4 @@
-set -x
+set -eux
 xhost +
 docker build --build-arg USER_ID="$(id -u)" --tag=xmind .
 docker rename xmind xmind-$(date +%d%m%Y-%H%m%S) || :
