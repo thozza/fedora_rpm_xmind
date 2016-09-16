@@ -3,13 +3,13 @@
 %define version_suffix 201504270119
 
 Name:       xmind
-Version:    3.6.1
+Version:    3.6.51
 Release:    1%{?dist}
 Summary:    Brainstorming and Mind Mapping
 Group:      Applications/Productivity
 License:    EPL or LGPLv3
 URL:        http://www.xmind.net
-Source0:    http://www.xmind.net/xmind/downloads/%{name}-7-update1-portable.zip
+Source0:    http://www.xmind.net/xmind/downloads/%{name}-7.5-update1-portable.zip
 Source1:    xmind.sh
 Source2:    xmind.png
 Source3:    xmind.xml
@@ -92,6 +92,9 @@ desktop-file-install                          \
 
 
 %changelog
+* Fri Sep 16 2016 Tomas Tomecek <ttomecek@redhat.com> - 3.6.51-1
+- 3.6.51 update
+
 * Tue Mar 08 2016 Tomas Tomecek <ttomecek@redhat.com> - 3.6.1-1
 - 3.6.1 update
 
