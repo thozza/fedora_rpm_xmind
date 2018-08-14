@@ -1,10 +1,10 @@
 %define __jar_repack 0
 
-%define version_suffix 201504270119
+#%%define version_suffix 201504270119
 
 Name:       xmind
 Version:    3.6.51
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Brainstorming and Mind Mapping
 Group:      Applications/Productivity
 License:    EPL or LGPLv3
@@ -52,6 +52,7 @@ mkdir -p %{buildroot}%{_datadir}/pixmaps
 mkdir -p %{buildroot}%{_datadir}/mime/packages
 mkdir -p %{buildroot}%{_datadir}/applications
 mkdir -p %{buildroot}%{_bindir}
+mkdir -p %{buildroot}%{_datadir}/icons/gnome/48x48/mimetypes
 
 # delete rpath from libcairo-swt.so
 # chrpath --delete XMind_Linux/libcairo-swt.so
@@ -69,8 +70,8 @@ cp -af ./Commons/* %{buildroot}%{_javadir}/%{name}
 cp -af ./XMind_Linux/* %{buildroot}%{_datadir}/%{name}
 cp -af %{SOURCE1} %{buildroot}%{_bindir}/%{name}
 cp -af %{SOURCE2} %{buildroot}%{_datadir}/pixmaps/%{name}.png
+cp -af %{SOURCE2} %{buildroot}%{_datadir}/icons/gnome/48x48/mimetypes/application-xmind.png
 cp -af %{SOURCE3} %{buildroot}%{_datadir}/mime/packages/%{name}.xml
-
 
 cp -af %{SOURCE4} %{buildroot}/xmind.desktop
 desktop-file-install                          \
@@ -78,6 +79,23 @@ desktop-file-install                          \
 --delete-original                             \
 --dir=%{buildroot}%{_datadir}/applications    \
 %{buildroot}/xmind.desktop
+
+
+%post
+/usr/bin/update-desktop-database &> /dev/null || :
+#/bin/touch --no-create %{_datadir}/mime/packages &>/dev/null || :
+/usr/bin/update-mime-database %{?rhel:-n} %{_datadir}/mime &> /dev/null || :
+#/bin/touch --no-create %{_datadir}/icons/gnome &>/dev/null || :
+/usr/bin/gtk-update-icon-cache %{_datadir}/icons/gnome &>/dev/null || :
+
+
+%postun
+/usr/bin/update-desktop-database &> /dev/null || :
+if [ $1 -eq 0 ] ; then
+    /usr/bin/update-mime-database %{_datadir}/mime &> /dev/null || :
+    /bin/touch --no-create %{_datadir}/icons/gnome &>/dev/null
+    /usr/bin/gtk-update-icon-cache %{_datadir}/icons/gnome &>/dev/null || :
+fi
 
 
 %files
@@ -92,6 +110,9 @@ desktop-file-install                          \
 
 
 %changelog
+* Tue Aug 14 2018 Tomas Hozza <thozza@redhat.com> - 3.6.51-2
+- Added some changes from Oliver Haessler made in RHEL-7 CSB
+
 * Fri Sep 16 2016 Tomas Tomecek <ttomecek@redhat.com> - 3.6.51-1
 - 3.6.51 update
 
