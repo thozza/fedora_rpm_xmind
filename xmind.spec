@@ -3,13 +3,13 @@
 #%%define version_suffix 201504270119
 
 Name:       xmind
-Version:    3.6.51
-Release:    2%{?dist}
+Version:    3.7.8
+Release:    1%{?dist}
 Summary:    Brainstorming and Mind Mapping
 Group:      Applications/Productivity
 License:    EPL or LGPLv3
 URL:        http://www.xmind.net
-Source0:    http://www.xmind.net/xmind/downloads/%{name}-7.5-update1-portable.zip
+Source0:    https://www.xmind.net/xmind/downloads/%{name}-8-update8-linux.zip
 Source1:    xmind.sh
 Source2:    xmind.png
 Source3:    xmind.xml
@@ -20,29 +20,26 @@ BuildRequires: desktop-file-utils
 BuildRequires: chrpath
 BuildRequires: java-devel
 AutoReqProv: no
-Requires: java
-# /home/xmind/.config/xmind/org.eclipse.osgi/840/0/.cp/libswt-pi-gtk-4528.so: libgtk-x11-2.0.so.0: cannot open shared object file: No such file or directory
-Requires: gtk3
+Requires: java = 1.8
+Requires: gtk2
+Requires: lame
+Requires: glib2
+
 
 %description
 XMind is an open source project that contributes to building a cutting-edge brainstorming/mind-mapping facility, focused on both usability and extendability. It helps people in capturing ideas into visually self-organized charts and sharing them for collaboration and communication. Currently supporting mind maps, fishbone diagrams, tree diagrams, org-charts, logic charts, and even spreadsheets. Often used for knowledge management, meeting minutes, task management, and GTD. 
 
 %prep
-#option -c is not working, it does not create specified dir
-#%%setup -q -c "%{name}-portable-%{version}"
 %setup -q -c
 
 %ifarch x86_64
-    rm -r XMind_Linux XMind_Windows XMind_Mac_OS_X_64bit
-    mv XMind_Linux{_64bit,}
+    mv XMind{_amd64,}
 %else
-    rm -r XMind_Linux_64bit XMind_Windows XMind_Mac_OS_X_64bit
-    # remove several files from Commons related to x86_64
-    find -name *x86*64* | xargs rm -rf
+    mv XMind{_i386,}
 %endif
 
 #tweak paths in config file
-sed -i "s@^\.\./Commons@%{_javadir}/%{name}@g" XMind_Linux/XMind.ini 
+sed -i "s@^\.\./plugins@%{_javadir}/%{name}/plugins@g" XMind/XMind.ini
 
 
 %install
@@ -54,23 +51,14 @@ mkdir -p %{buildroot}%{_datadir}/applications
 mkdir -p %{buildroot}%{_bindir}
 mkdir -p %{buildroot}%{_datadir}/icons/gnome/48x48/mimetypes
 
-# delete rpath from libcairo-swt.so
-# chrpath --delete XMind_Linux/libcairo-swt.so
-
-# hack to get rid of the splash screen
-# https://xmind.desk.com/customer/portal/questions/5667621-xmind-startup-bug-in-ubuntu-13-4
-
-# mkdir -p icons
-# touch icons/progress.gif
-# jar -uf Commons/plugins/org.xmind.cathy_%{version}.%{version_suffix}.jar icons/progress.gif
-# chmod 0644 Commons/plugins/org.xmind.cathy_%{version}.%{version_suffix}.jar
-# rm -rf icons
-
-cp -af ./Commons/* %{buildroot}%{_javadir}/%{name}
-cp -af ./XMind_Linux/* %{buildroot}%{_datadir}/%{name}
+cp -af ./configuration %{buildroot}%{_javadir}/%{name}
+cp -af ./features %{buildroot}%{_javadir}/%{name}
+cp -af ./fonts %{buildroot}%{_javadir}/%{name}
+cp -af ./plugins %{buildroot}%{_javadir}/%{name}
+cp -af ./XMind/* %{buildroot}%{_datadir}/%{name}
 cp -af %{SOURCE1} %{buildroot}%{_bindir}/%{name}
 cp -af %{SOURCE2} %{buildroot}%{_datadir}/pixmaps/%{name}.png
-cp -af %{SOURCE2} %{buildroot}%{_datadir}/icons/gnome/48x48/mimetypes/application-xmind.png
+cp -af %{SOURCE2} %{buildroot}%{_datadir}/icons/gnome/48x48/mimetypes/application-%{name}.png
 cp -af %{SOURCE3} %{buildroot}%{_datadir}/mime/packages/%{name}.xml
 
 cp -af %{SOURCE4} %{buildroot}/xmind.desktop
@@ -83,9 +71,7 @@ desktop-file-install                          \
 
 %post
 /usr/bin/update-desktop-database &> /dev/null || :
-#/bin/touch --no-create %{_datadir}/mime/packages &>/dev/null || :
 /usr/bin/update-mime-database %{?rhel:-n} %{_datadir}/mime &> /dev/null || :
-#/bin/touch --no-create %{_datadir}/icons/gnome &>/dev/null || :
 /usr/bin/gtk-update-icon-cache %{_datadir}/icons/gnome &>/dev/null || :
 
 
@@ -100,16 +86,23 @@ fi
 
 %files
 %defattr(-,root,root)
-%doc *.txt *.html
+%doc readme.txt
+%license xpla.txt lgpl-3.0.html epl-v10.html
 %attr(755,root,root) %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/mime/packages/%{name}.xml
+%{_datadir}/icons/gnome/48x48/mimetypes/application-%{name}.png
 %{_datadir}/pixmaps/%{name}.png
 %{_javadir}/%{name}
 %{_datadir}/%{name}
 
 
 %changelog
+* Tue Aug 14 2018 Tomas Hozza <thozza@redhat.com> - 3.7.8-1
+- Update to 3.7.8
+- Clean up SPEC from unused code
+- Update Requires based on setup.sh script from upstream
+
 * Tue Aug 14 2018 Tomas Hozza <thozza@redhat.com> - 3.6.51-2
 - Added some changes from Oliver Haessler made in RHEL-7 CSB
 
