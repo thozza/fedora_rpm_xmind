@@ -4,7 +4,7 @@
 ## Installation
 
 ```
-# dnf copr enable ttomecek/xmind
+# dnf copr enable thozza/XMind
 # dnf install -y xmind
 ```
 
