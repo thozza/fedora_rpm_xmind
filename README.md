@@ -21,5 +21,5 @@ $ xmind
 Rebuild in copr:
 
 ```
-$ copr build ttomecek/xmind xmind-*.src.rpm
+$ copr build thozza/XMind xmind-*.src.rpm
 ```
