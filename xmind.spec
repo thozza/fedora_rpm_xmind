@@ -4,7 +4,7 @@
 
 Name:       xmind
 Version:    3.7.8
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Brainstorming and Mind Mapping
 Group:      Applications/Productivity
 License:    EPL or LGPLv3
@@ -20,7 +20,7 @@ BuildRequires: desktop-file-utils
 BuildRequires: chrpath
 BuildRequires: java-devel
 AutoReqProv: no
-Requires: java = 1:1.8.0
+Requires: java-1.8.0
 Requires: gtk2
 Requires: lame
 Requires: glib2
@@ -98,6 +98,9 @@ fi
 
 
 %changelog
+* Mon Sep 14 2020 Zdenek Dohnal <zdohnal@redhat.com> - 3.7.8-3
+- Fix Java requirement
+
 * Thu Aug 16 2018 Tomas Hozza <thozza@redhat.com> - 3.7.8-2
 - Fixed version of Runtime dependency on Java
 
